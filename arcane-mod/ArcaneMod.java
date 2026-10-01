@@ -1,35 +1,24 @@
-package com.arcane;
-
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Rarity;
-
-public final class ModItems {
-    public static final Item ARCANE_SHARD = register("arcane_shard",
-            new CharacterItem(new FabricItemSettings().maxCount(16).rarity(Rarity.RARE), Form.SAIR, true));
-    public static final Item ARCANE_CRYSTAL = register("arcane_crystal",
-            new CharacterItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC).fireproof(), Form.SAIR, false));
-    public static final Item EIRO_HEART = register("eiro_heart",
-            new CharacterItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC).fireproof(), Form.EIRO, true));
-    public static final Item SAIR_KATANA = register("sair_katana", new KatanaItem());
-
-    private ModItems() {}
-
-    private static Item register(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(ArcaneMod.MOD_ID, name), item);
-    }
-
-    public static void init() {
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(e -> {
-            e.add(ARCANE_SHARD);
-            e.add(ARCANE_CRYSTAL);
-            e.add(EIRO_HEART);
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(e -> e.add(SAIR_KATANA));
-    }
+{
+  "item.arcane.arcane_shard": "Осколок Аркана",
+  "item.arcane.arcane_crystal": "Кристалл Аркана",
+  "item.arcane.eiro_heart": "Сердце Эйро",
+  "item.arcane.sair_katana": "Катана Саира",
+  "key.arcane.transform": "Превращение",
+  "key.categories.arcane": "Arcane",
+  "message.arcane.unlocked_sair": "§5Сила Аркана приняла тебя. Нажми Alt, чтобы стать Саиром.",
+  "message.arcane.unlocked_eiro": "§4Пламя Эйро проснулось в тебе. Нажми Alt, чтобы показать, кто ты.",
+  "message.arcane.power_removed": "§7Сила покинула тебя.",
+  "message.arcane.already_has": "Эта сила уже в тебе",
+  "message.arcane.no_power": "У тебя нет силы для превращения",
+  "message.arcane.cooldown": "Превращение перезаряжается: %s с",
+  "message.arcane.on_sair": "§5Ты стал Саиром.",
+  "message.arcane.on_eiro": "§4Ты стал Эйро.",
+  "message.arcane.off": "§7Ты вернулся в обычную форму.",
+  "message.arcane.not_sair": "Катана подчиняется только Саиру",
+  "message.arcane.legend_fell": "§6Легенда пала! %s победил %s и забрал Кристалл Аркана!",
+  "key.arcane.ability": "Способность (бросок блока)",
+  "message.arcane.ability_eiro_only": "Способность доступна только в форме Эйро",
+  "message.arcane.ability_cooldown": "Способность перезаряжается: %s с",
+  "message.arcane.no_block": "Смотри на блок (не дальше 6 блоков)",
+  "message.arcane.bad_block": "Этот блок нельзя поднять"
 }
