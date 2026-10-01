@@ -42,7 +42,7 @@ public final class SairForm {
     }
 
     public static void revert(ServerPlayerEntity p) {
-        p.removeCommandTag(TAG);
+           p.removeScoreboardTag(TAG);
         p.removeStatusEffect(StatusEffects.SPEED);
         p.removeStatusEffect(StatusEffects.STRENGTH);
         p.sendMessage(Text.translatable("message.arcane.reverted"), false);
