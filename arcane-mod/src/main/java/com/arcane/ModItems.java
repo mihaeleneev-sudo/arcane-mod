@@ -11,9 +11,11 @@ import net.minecraft.util.Rarity;
 
 public final class ModItems {
     public static final Item ARCANE_SHARD = register("arcane_shard",
-            new ArcaneRelicItem(new FabricItemSettings().maxCount(16).rarity(Rarity.RARE), true));
+            new CharacterItem(new FabricItemSettings().maxCount(16).rarity(Rarity.RARE), Form.SAIR, true));
     public static final Item ARCANE_CRYSTAL = register("arcane_crystal",
-            new ArcaneRelicItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC).fireproof(), false));
+            new CharacterItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC).fireproof(), Form.SAIR, false));
+    public static final Item EIRO_HEART = register("eiro_heart",
+            new CharacterItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC).fireproof(), Form.EIRO, true));
     public static final Item SAIR_KATANA = register("sair_katana", new KatanaItem());
 
     private ModItems() {}
@@ -26,6 +28,7 @@ public final class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(e -> {
             e.add(ARCANE_SHARD);
             e.add(ARCANE_CRYSTAL);
+            e.add(EIRO_HEART);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(e -> e.add(SAIR_KATANA));
     }
