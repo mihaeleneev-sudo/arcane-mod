@@ -1,10 +1,3 @@
 {
-  "item.arcane.arcane_shard": "Arcane Shard",
-  "item.arcane.arcane_crystal": "Arcane Crystal",
-  "item.arcane.sair_katana": "Sair's Katana",
-  "message.arcane.transformed": "§5The power of Arcane awakens... You became Sair.",
-  "message.arcane.reverted": "§7You returned to your normal form.",
-  "message.arcane.already_sair": "You are already in Sair form",
-  "message.arcane.not_sair": "The katana obeys only Sair",
-  "message.arcane.legend_fell": "§6A legend has fallen! %s defeated %s!"
+  "item.arcane.eiro_heart": "Eiro's Heart"
 }

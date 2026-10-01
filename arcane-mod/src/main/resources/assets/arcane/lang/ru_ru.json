@@ -1,10 +1,3 @@
 {
-  "item.arcane.arcane_shard": "Осколок Аркана",
-  "item.arcane.arcane_crystal": "Кристалл Аркана",
-  "item.arcane.sair_katana": "Катана Саира",
-  "message.arcane.transformed": "§5Сила Аркана пробуждается... Ты стал Саиром.",
-  "message.arcane.reverted": "§7Ты вернулся в обычную форму.",
-  "message.arcane.already_sair": "Ты уже в форме Саира",
-  "message.arcane.not_sair": "Катана подчиняется только Саиру",
-  "message.arcane.legend_fell": "§6Легенда пала! %s победил %s и забрал Кристалл Аркана!"
+  "item.arcane.eiro_heart": "Сердце Эйро"
 }
