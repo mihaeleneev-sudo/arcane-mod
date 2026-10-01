@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "arcane",
+  "version": "${version}",
+  "name": "Arcane: Legend of Ark",
+  "description": "Осколки Аркана, легенда Арк и формы Саира и Эйро.",
+  "authors": [
+    "You"
+  ],
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.arcane.ArcaneMod"
+    ],
+    "client": [
+      "com.arcane.client.ArcaneClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}

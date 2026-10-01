@@ -1,22 +1,49 @@
-plugins {
-    id 'fabric-loom' version '1.5-SNAPSHOT'
-}
+name: build
 
-version = project.mod_version
-group = project.maven_group
-base { archivesName = project.archives_base_name }
+on:
+  push:
+  workflow_dispatch:
 
-dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-}
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-processResources {
-    inputs.property "version", project.version
-    filesMatching("fabric.mod.json") { expand "version": project.version }
-}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-tasks.withType(JavaCompile).configureEach { it.options.release = 17 }
-java { withSourcesJar() }
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.5'
+
+      - name: Verify project files
+        working-directory: arcane-mod
+        run: |
+          echo "=== Java sources ==="
+          find src/main/java -type f -name '*.java' | sort
+          echo "=== Required files ==="
+          test -f src/main/java/com/arcane/ArcaneMod.java
+          test -f src/main/java/com/arcane/ModItems.java
+          test -f src/main/java/com/arcane/Forms.java
+          test -f src/main/java/com/arcane/Form.java
+          test -f src/main/java/com/arcane/Packets.java
+          test -f src/main/java/com/arcane/KatanaItem.java
+          echo "All required source files are present."
+
+      - name: Build mod
+        working-directory: arcane-mod
+        run: gradle clean build --no-daemon
+
+      - name: Upload mod JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: arcane-mod
+          path: arcane-mod/build/libs/*.jar
+          if-no-files-found: error
