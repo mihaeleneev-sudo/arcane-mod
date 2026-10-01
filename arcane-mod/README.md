@@ -1,6 +1,22 @@
-# Arcane (Fabric 1.20.1)
-Сборка: установите JDK 17 и Gradle 8.5+, затем в папке проекта:
-    gradle wrapper --gradle-version 8.5
-    ./gradlew build        (Windows: gradlew.bat build)
-Готовый мод: build/libs/arcane-1.0.0.jar (не sources). Нужен Fabric API 0.92.2+1.20.1.
-Конфиг после первого запуска: config/arcane.properties
+plugins {
+    id 'fabric-loom' version '1.5-SNAPSHOT'
+}
+
+version = project.mod_version
+group = project.maven_group
+base { archivesName = project.archives_base_name }
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") { expand "version": project.version }
+}
+
+tasks.withType(JavaCompile).configureEach { it.options.release = 17 }
+java { withSourcesJar() }
