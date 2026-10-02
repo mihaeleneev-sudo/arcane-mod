@@ -1,0 +1,27 @@
+name: build
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unzip project
+        run: |
+          mkdir project
+          unzip -q arcane-mod-1.2.0.zip -d project
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.5
+      - name: Build
+        working-directory: project
+        run: gradle build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arcane-mod
+          path: project/build/libs/arcane-1.2.0.jar
