@@ -7,10 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Unzip project
+      - name: Find and unzip project
         run: |
+          echo "Files in repository root:"
+          ls -la
+          ZIP=$(ls *.zip | head -n 1)
+          echo "Using zip: $ZIP"
           mkdir project
-          unzip -q arcane-mod-1.2.0.zip -d project
+          unzip -q "$ZIP" -d project
+          GRADLE_FILE=$(find project -maxdepth 3 -name build.gradle | head -n 1)
+          echo "Found build.gradle: $GRADLE_FILE"
+          echo "PROJ=$(dirname "$GRADLE_FILE")" >> "$GITHUB_ENV"
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -19,9 +26,11 @@ jobs:
         with:
           gradle-version: 8.5
       - name: Build
-        working-directory: project
+        working-directory: ${{ env.PROJ }}
         run: gradle build
       - uses: actions/upload-artifact@v4
         with:
           name: arcane-mod
-          path: project/build/libs/arcane-1.2.0.jar
+          path: |
+            ${{ env.PROJ }}/build/libs/*.jar
+            !${{ env.PROJ }}/build/libs/*-sources.jar
