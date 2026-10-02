@@ -80,7 +80,8 @@ public class ArcaneMod implements ModInitializer {
 
         // 2) Смерть игрока: форма сбрасывается; убийство легенды Арка -> Кристалл Аркана
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
-            if (!(entity instanceof ServerPlayerEntity victim)) return;
+          if (!(entity instanceof ServerPlayerEntity)) return;
+ServerPlayerEntity victim = (ServerPlayerEntity) entity;
             Forms.deactivate(victim, false);
 
             if (!victim.getGameProfile().getName().equalsIgnoreCase(ArcConfig.legendName)) return;
