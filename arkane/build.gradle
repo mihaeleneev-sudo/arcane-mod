@@ -85,7 +85,9 @@ ServerPlayerEntity victim = (ServerPlayerEntity) entity;
             Forms.deactivate(victim, false);
 
             if (!victim.getGameProfile().getName().equalsIgnoreCase(ArcConfig.legendName)) return;
-            if (!(damageSource.getAttacker() instanceof ServerPlayerEntity killer) || killer == victim) return;
+            if (!(damageSource.getAttacker() instanceof ServerPlayerEntity)) return;
+ServerPlayerEntity killer = (ServerPlayerEntity) damageSource.getAttacker();
+if (killer == victim) return;
 
             ItemScatterer.spawn(victim.getServerWorld(), victim.getX(), victim.getY(), victim.getZ(),
                     new ItemStack(ModItems.ARCANE_CRYSTAL));
