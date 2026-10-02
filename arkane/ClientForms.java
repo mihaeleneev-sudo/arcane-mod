@@ -1,20 +1,21 @@
 package com.arcane;
 
-/** 8 карт Шута: 4 карты удачи и 4 карты неудачи. */
-public enum Card {
-    LUCK_1(0, true, 1, 1.5f),
-    LUCK_2(1, true, 2, 2.0f),
-    LUCK_3(2, true, 3, 3.0f),
-    LUCK_4(3, true, 4, 4.0f),
-    BAD_1(4, false, 1, 1.0f / 1.5f),
-    BAD_2(5, false, 2, 0.5f),
-    BAD_3(6, false, 3, 1.0f / 3.0f),
-    BAD_4(7, false, 4, 0.25f);
-    public static final int[] CRAFT_LOSS_PERCENT = {10, 25, 75, 100};
+public enum Form {
+    NONE(0, "none"),
+    SAIR(1, "sair"),
+    EIRO(2, "eiro"),
+    JESTER(3, "jester");
+
     public final int id;
-    public final boolean luck;
-    public final int tier;
-    public final float damageMult;
-    Card(int id, boolean luck, int tier, float damageMult) { this.id=id; this.luck=luck; this.tier=tier; this.damageMult=damageMult; }
-    public static Card byId(int id) { return values()[Math.floorMod(id, values().length)]; }
+    public final String key;
+
+    Form(int id, String key) {
+        this.id = id;
+        this.key = key;
+    }
+
+    public static Form fromId(int id) {
+        for (Form f : values()) if (f.id == id) return f;
+        return NONE;
+    }
 }
