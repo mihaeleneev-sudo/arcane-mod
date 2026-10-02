@@ -1,46 +1,49 @@
 name: build
+
 on:
   push:
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Find project
-        run: |
-          echo "Files in repository:"
-          find . -maxdepth 4 -not -path './.git*' | head -n 80
-          ZIP=$(ls *.zip 2>/dev/null | head -n 1 || true)
-          if [ -n "$ZIP" ]; then
-            echo "Using zip: $ZIP"
-            mkdir project
-            unzip -q "$ZIP" -d project
-            SEARCH=project
-          else
-            echo "No zip found, using repository files"
-            SEARCH=.
-          fi
-          GRADLE_FILE=$(find "$SEARCH" -maxdepth 4 -name build.gradle -not -path './.git/*' | head -n 1)
-          if [ -z "$GRADLE_FILE" ]; then
-            echo "ERROR: build.gradle not found. Project files are missing in the repository."
-            exit 1
-          fi
-          echo "Found build.gradle: $GRADLE_FILE"
-          echo "PROJ=$(dirname "$GRADLE_FILE")" >> "$GITHUB_ENV"
-      - uses: actions/setup-java@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
-      - uses: gradle/actions/setup-gradle@v3
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: 8.5
-      - name: Build
-        working-directory: ${{ env.PROJ }}
-        run: gradle build
-      - uses: actions/upload-artifact@v4
+          gradle-version: '8.5'
+
+      - name: Verify project files
+        working-directory: arkane
+        run: |
+          echo "=== Java sources ==="
+          find src/main/java -type f -name '*.java' | sort
+          echo "=== Required files ==="
+          test -f src/main/java/com/arcane/ArcaneMod.java
+          test -f src/main/java/com/arcane/ModItems.java
+          test -f src/main/java/com/arcane/Forms.java
+          test -f src/main/java/com/arcane/Form.java
+          test -f src/main/java/com/arcane/Packets.java
+          test -f src/main/java/com/arcane/KatanaItem.java
+          echo "All required source files are present."
+
+      - name: Build mod
+        working-directory: arkane
+        run: gradle clean build --no-daemon
+
+      - name: Upload mod JAR
+        uses: actions/upload-artifact@v4
         with:
           name: arcane-mod
-          path: |
-            ${{ env.PROJ }}/build/libs/*.jar
-            !${{ env.PROJ }}/build/libs/*-sources.jar
+          path: arkane/build/libs/*.jar
+          if-no-files-found: error
