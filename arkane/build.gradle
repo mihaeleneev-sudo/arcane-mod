@@ -98,7 +98,10 @@ if (killer == victim) return;
 
         // 3) Удары: Саир бьёт катаной по площади, Эйро поджигает цель
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-            if (!world.isClient && player instanceof ServerPlayerEntity sp) {
+           if (!world.isClient && player instanceof ServerPlayerEntity) {
+    ServerPlayerEntity sp = (ServerPlayerEntity) player;
+    Forms.onCraft(sp, (ItemStack)(Object)this);
+}
                 if (Forms.isActive(sp, Form.SAIR) && sp.getMainHandStack().getItem() instanceof KatanaItem) {
                     Forms.airSlash(sp, 4.5, 5.0f, entity);
                 }
