@@ -1,12 +1,21 @@
-{
-  "schemaVersion": 1,
-  "id": "arcane",
-  "version": "${version}",
-  "name": "Arcane: Legend of Ark",
-  "description": "Осколки Аркана, форма Саира с катаной, демон Эйро и Шут с картами.",
-  "authors": ["You"],
-  "environment": "*",
-  "entrypoints": { "main": ["com.arcane.ArcaneMod"], "client": ["com.arcane.client.ArcaneClient"] },
-  "mixins": ["arcane.common.mixins.json", {"config":"arcane.mixins.json","environment":"client"}],
-  "depends": {"fabricloader": ">=0.14.21", "minecraft": "~1.20.1", "java": ">=17", "fabric-api": "*"}
+package com.arcane;
+
+public enum Form {
+    NONE(0, "none"),
+    SAIR(1, "sair"),
+    EIRO(2, "eiro"),
+    JESTER(3, "jester");
+
+    public final int id;
+    public final String key;
+
+    Form(int id, String key) {
+        this.id = id;
+        this.key = key;
+    }
+
+    public static Form fromId(int id) {
+        for (Form f : values()) if (f.id == id) return f;
+        return NONE;
+    }
 }

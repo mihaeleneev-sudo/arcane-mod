@@ -1,30 +1,20 @@
-{
-  "item.arcane.arcane_shard": "Arcane Shard",
-  "item.arcane.arcane_crystal": "Arcane Crystal",
-  "item.arcane.eiro_heart": "Heart of Eiro",
-  "item.arcane.sair_katana": "Sair's Katana",
-  "key.arcane.transform": "Transform",
-  "key.categories.arcane": "Arcane",
-  "message.arcane.unlocked_sair": "§5Arcane accepted you. Press Alt to become Sair.",
-  "message.arcane.unlocked_eiro": "§4The flame of Eiro awakens. Press Alt to show who you are.",
-  "message.arcane.power_removed": "§7The power left you.",
-  "message.arcane.already_has": "You already have this power",
-  "message.arcane.no_power": "You have no power to transform",
-  "message.arcane.cooldown": "Transformation on cooldown: %s s",
-  "message.arcane.on_sair": "§5You became Sair.",
-  "message.arcane.on_eiro": "§4You became Eiro.",
-  "message.arcane.off": "§7You returned to your normal form.",
-  "message.arcane.not_sair": "The katana obeys only Sair",
-  "message.arcane.legend_fell": "§6A legend has fallen! %s defeated %s!",
-  "key.arcane.ability": "Ability (throw block)",
-  "message.arcane.ability_eiro_only": "This ability needs the Eiro form",
-  "message.arcane.ability_cooldown": "Ability on cooldown: %s s",
-  "message.arcane.no_block": "Look at a block (within 6 blocks)",
-  "message.arcane.bad_block": "This block can't be lifted",
-  "item.arcane.fool_card": "Jester's Card",
-  "message.arcane.unlocked_jester": "You received the Jester power.",
-  "message.arcane.on_jester": "The Jester awakened.",
-  "message.arcane.craft_luck": "A luck card upgraded the item.",
-  "message.arcane.craft_bad": "A bad card removed %s%% durability.",
-  "message.arcane.craft_nothing": "The card could not change the item."
+package com.arcane;
+
+/** 8 карт Шута: 4 карты удачи и 4 карты неудачи. */
+public enum Card {
+    LUCK_1(0, true, 1, 1.5f),
+    LUCK_2(1, true, 2, 2.0f),
+    LUCK_3(2, true, 3, 3.0f),
+    LUCK_4(3, true, 4, 4.0f),
+    BAD_1(4, false, 1, 1.0f / 1.5f),
+    BAD_2(5, false, 2, 0.5f),
+    BAD_3(6, false, 3, 1.0f / 3.0f),
+    BAD_4(7, false, 4, 0.25f);
+    public static final int[] CRAFT_LOSS_PERCENT = {10, 25, 75, 100};
+    public final int id;
+    public final boolean luck;
+    public final int tier;
+    public final float damageMult;
+    Card(int id, boolean luck, int tier, float damageMult) { this.id=id; this.luck=luck; this.tier=tier; this.damageMult=damageMult; }
+    public static Card byId(int id) { return values()[Math.floorMod(id, values().length)]; }
 }
