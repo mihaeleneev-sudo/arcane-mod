@@ -7,15 +7,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Find and unzip project
+      - name: Find project
         run: |
-          echo "Files in repository root:"
-          ls -la
-          ZIP=$(ls *.zip | head -n 1)
-          echo "Using zip: $ZIP"
-          mkdir project
-          unzip -q "$ZIP" -d project
-          GRADLE_FILE=$(find project -maxdepth 3 -name build.gradle | head -n 1)
+          echo "Files in repository:"
+          find . -maxdepth 4 -not -path './.git*' | head -n 80
+          ZIP=$(ls *.zip 2>/dev/null | head -n 1 || true)
+          if [ -n "$ZIP" ]; then
+            echo "Using zip: $ZIP"
+            mkdir project
+            unzip -q "$ZIP" -d project
+            SEARCH=project
+          else
+            echo "No zip found, using repository files"
+            SEARCH=.
+          fi
+          GRADLE_FILE=$(find "$SEARCH" -maxdepth 4 -name build.gradle -not -path './.git/*' | head -n 1)
+          if [ -z "$GRADLE_FILE" ]; then
+            echo "ERROR: build.gradle not found. Project files are missing in the repository."
+            exit 1
+          fi
           echo "Found build.gradle: $GRADLE_FILE"
           echo "PROJ=$(dirname "$GRADLE_FILE")" >> "$GITHUB_ENV"
       - uses: actions/setup-java@v4
