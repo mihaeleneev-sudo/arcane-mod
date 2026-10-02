@@ -1,1 +1,1 @@
-{ "parent": "minecraft:item/handheld", "textures": { "layer0": "arcane:item/sair_katana" } }
+{ "parent": "minecraft:item/generated", "textures": { "layer0": "arcane:item/arcane_shard" } }
