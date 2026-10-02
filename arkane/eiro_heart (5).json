@@ -20,11 +20,5 @@
   "message.arcane.ability_eiro_only": "Способность доступна только в форме Эйро",
   "message.arcane.ability_cooldown": "Способность перезаряжается: %s с",
   "message.arcane.no_block": "Смотри на блок (не дальше 6 блоков)",
-  "message.arcane.bad_block": "Этот блок нельзя поднять",
-  "item.arcane.fool_card": "Карта Шута",
-  "message.arcane.unlocked_jester": "Ты получил силу Шута.",
-  "message.arcane.on_jester": "Шут пробудился.",
-  "message.arcane.craft_luck": "Карта удачи улучшила предмет.",
-  "message.arcane.craft_bad": "Карта неудачи отняла прочность: %s%%.",
-  "message.arcane.craft_nothing": "Карта не смогла изменить предмет."
+  "message.arcane.bad_block": "Этот блок нельзя поднять"
 }

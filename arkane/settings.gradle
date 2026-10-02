@@ -1,10 +1,4 @@
-pluginManagement {
-    repositories {
-        maven { url = "https://maven.fabricmc.net/" }
-        maven { url = "https://maven.architectury.dev/" }
-        gradlePluginPortal()
-        mavenCentral()
-    }
+{
+  "parent": "minecraft:item/generated",
+  "textures": {"layer0": "arcane:item/fool_card"}
 }
-
-rootProject.name = "arcane-mod"

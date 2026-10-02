@@ -21,10 +21,10 @@
   "message.arcane.ability_cooldown": "Ability on cooldown: %s s",
   "message.arcane.no_block": "Look at a block (within 6 blocks)",
   "message.arcane.bad_block": "This block can't be lifted",
-  "item.arcane.fool_card": "Jester's Card",
-  "message.arcane.unlocked_jester": "You received the Jester power.",
-  "message.arcane.on_jester": "The Jester awakened.",
-  "message.arcane.craft_luck": "A luck card upgraded the item.",
-  "message.arcane.craft_bad": "A bad card removed %s%% durability.",
-  "message.arcane.craft_nothing": "The card could not change the item."
+  "item.arcane.fool_card": "Fool's Card",
+  "message.arcane.unlocked_jester": "§6The Fool accepted you. Press Alt to transform.",
+  "message.arcane.on_jester": "§6You became the Fool.",
+  "message.arcane.craft_luck": "§aA luck card empowered the item.",
+  "message.arcane.craft_bad": "§cA bad luck card removed %s%% durability.",
+  "message.arcane.craft_nothing": "The card had no effect on the item."
 }
